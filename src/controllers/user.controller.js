@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 const HttpException =require('../utils/HttpException.utils')
 const bycrpt = require('bcryptjs')
+const UserModel = require('../models/user.model')
 dotenv.config()
 
 class UserController {
@@ -26,7 +27,7 @@ class UserController {
     }
 
 
-    update = () => {
+    update = async(req, res, next) => {
         req.body.password = await bycrpt.hash(req.body.password, 8)
         const result = await UserModel.update(req.body)
         if(!result)
@@ -45,10 +46,11 @@ class UserController {
     signIn = async (req, res, next) => {
         const {email, password:pass} = req.body
         const user = await UserModel.findOne({email: email})
+
         if(!user)
             throw new HttpException(401, 'Unable to login')
 
-        const isMatch = await bycrpt.compare(pass, user.email)
+        const isMatch = await bycrpt.compare(pass, user.password)
 
         if(!isMatch)
             throw new HttpException(401, 'Incorrect password')
@@ -56,7 +58,6 @@ class UserController {
         const token = jwt.sign({uid : user.id.toString()}, process.env.SECRET_JWT)
 
         const {password, ...etc} = user
-
         res.status(206).send({...etc, token})
     } 
 

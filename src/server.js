@@ -4,6 +4,8 @@ const cors = require('cors')
 const HttpException = require('./utils/HttpException.utils')
 const errorMiddleware = require('./middleware/error.middleware')
 
+const userRoute = require('./routes/user.route')
+
 const app = express()
 
 dotenv.config()
@@ -13,6 +15,8 @@ app.use(express.json())
 app.use(cors())
 
 app.options("*", cors())
+
+app.use('/user',userRoute)
 
 app.options("*", (req, res, next) => {
     const error = new HttpException(404, 'Endpoint Not Found')
