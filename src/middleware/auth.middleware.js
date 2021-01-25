@@ -17,18 +17,18 @@ const auth = (...roles) => {
 
             const token = authHeader.replace(bearer, '') 
             const secretKey = process.env.SECRET_JWT
-            console.error(`secretKey => ${secretKey}`)
             const decode = jwt.verify(token, secretKey)
-            const user = await UserModel.findOne({id: decode.uid})
+            const user = await UserModel.findOne({uid: decode.uid})
 
             if(!user)
                 throw new HttpException(401, 'Authentication failed')
 
-            const ownerAuthorized = req.params.id == user.id 
+            const ownerAuthorized = req.params.id == user.uid 
 
             if(!ownerAuthorized && roles.length && !roles.includes(user.role))
                 throw new HttpException(401, 'Unauthorized')
-
+            const {password, ...etc} = user 
+            req.current = etc 
             next()
 
         }catch(error)  {

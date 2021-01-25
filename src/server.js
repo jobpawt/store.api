@@ -5,6 +5,7 @@ const HttpException = require('./utils/HttpException.utils')
 const errorMiddleware = require('./middleware/error.middleware')
 
 const userRoute = require('./routes/user.route')
+const productRoute = require('./routes/product.route')
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.use(cors())
 app.options("*", cors())
 
 app.use('/user',userRoute)
+app.use('/product', productRoute)
 
 app.options("*", (req, res, next) => {
     const error = new HttpException(404, 'Endpoint Not Found')

@@ -39,10 +39,10 @@ class UserModel {
         return affectedRows
     }
 
-    update = async(params) => {
+    update = async(params, id) => {
         const {columns, values} = pairSQL(params)
         const sql = `UPDATE ${this.table} SET ${columns} WHERE id = ?`
-        const result = await query(sql, values, (err, res) => {
+        const result = await query(sql, [...values,id], (err, res) => {
             if(err)
                 throw HttpException(400, 'update user failed')
             return res
