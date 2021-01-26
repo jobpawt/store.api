@@ -26,7 +26,7 @@ class PreProductController{
     }
 
     delete = async(req, res, next) => {
-        const result = await PreProductModel.delete({driver_id: req.params.id})
+        const result = await PreProductModel.delete({pre_id: req.params.id})
         if(!result)
             throw new HttpException(404, `${this.table} not found`)
         res.staus(200).send(`${this.table} was deleted`)

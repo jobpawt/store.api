@@ -27,7 +27,7 @@ class BookController{
     }
 
     delete = async(req, res, next) => {
-        const result = await BookModel.delete({buy_id : req.params.id})
+        const result = await BookModel.delete({book_id : req.params.id})
         if(!result)
             throw new HttpException(404, `${this.table} not found`)
         res.staus(200).send(`${this.table} was deleted`)

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const awaitHandler = require('../middleware/awaitHandler.middleware')
 const auth = require('../middleware/auth.middleware')
-const BookController = require('../controllers/Book.controller')
+const BookController = require('../controllers/book.controller')
 
 //get all 
 router.get('/all', awaitHandler(BookController.getAll))

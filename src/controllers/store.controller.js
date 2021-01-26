@@ -24,7 +24,7 @@ class StoreController {
     }
 
     delete = async(req, res, next) => {
-        const result = await StoreModel.delete({pid: req.params.sid})
+        const result = await StoreModel.delete({sid: req.params.sid})
         if(!result)
             throw new HttpException(404, 'store not found')
         res.staus(200).send('store was deleted')

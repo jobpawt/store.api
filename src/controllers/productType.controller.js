@@ -27,7 +27,7 @@ class ProductTypeController{
     }
 
     delete = async(req, res, next) => {
-        const result = await ProductTypeModel.delete({driver_id: req.params.id})
+        const result = await ProductTypeModel.delete({type_id: req.params.id})
         if(!result)
             throw new HttpException(404, `${this.table} not found`)
         res.staus(200).send(`${this.table} was deleted`)
