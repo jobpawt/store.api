@@ -1,19 +1,19 @@
 const router = require('express').Router()
 const awaitHandler = require('../middleware/awaitHandler.middleware')
 const auth = require('../middleware/auth.middleware')
-const ProductType = requrie('../controllers/ProductType.controller')
+const ProductTypeController = requrie('../controllers/ProductType.controller')
 
 //get all 
-router.get('/all', awaitHandler(ProductType.getAll))
+router.get('/all', awaitHandler(ProductTypeController.getAll))
 
 //get one 
-router.get('/:id', awaitHandler(ProductType.getById))
+router.get('/:id', awaitHandler(ProductTypeController.getById))
 
 //create 
-router.post('/create',auth(), awaitHandler(ProductType.create))
+router.post('/create',auth(), awaitHandler(ProductTypeController.create))
 
 //edit
-router.patch('/edit/:id',auth(), awaitHandler(ProductType.update))
+router.patch('/edit/:id',auth(), awaitHandler(ProductTypeController.update))
 
 //delete 
-router.delete('/delete/:sid',auth() ,awaitHandler(ProductType.delete))
+router.delete('/delete/:sid',auth() ,awaitHandler(ProductTypeController.delete))
