@@ -13,6 +13,9 @@ const preProductRoute = require('./routes/pre_product.route')
 const buyRoute = require('./routes/buy.route')
 const bookRoute = require('./routes/book.route')
 const paymentRoute = require('./routes/payment.route')
+const sendProductRote = require('./routes/send_product.route')
+const sendBookRoute = require('./routes/send_book.route')
+const approveRoute = require('./routes/approve_store.route')
 
 const app = express()
 
@@ -33,6 +36,9 @@ app.use('/driver', driverRoute)
 app.use('/buy', buyRoute)
 app.use('/book', bookRoute)
 app.use('/payment', paymentRoute)
+app.use('/send/product', sendProductRote)
+app.use('/send/book', sendBookRoute)
+app.use('/approve/store', approveRoute)
 
 app.options("*", (req, res, next) => {
     const error = new HttpException(404, 'Endpoint Not Found')
