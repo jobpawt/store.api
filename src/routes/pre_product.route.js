@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const awaitHandler = require('../middleware/awaitHandler.middleware')
 const auth = require('../middleware/auth.middleware')
-const PreProductController = requrie('../controllers/preProduct.controller')
+const PreProductController = require('../controllers/preProduct.controller')
 
 //get all 
 router.get('/all', awaitHandler(PreProductController.getAll))
@@ -17,3 +17,5 @@ router.patch('/edit/:id',auth(), awaitHandler(PreProductController.update) )
 
 //delete 
 router.delete('/delete/:sid',auth() ,awaitHandler(PreProductController.delete))
+
+module.exports = router

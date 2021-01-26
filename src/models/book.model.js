@@ -1,8 +1,9 @@
 const query = require('../db/connect')
 const pairSQL = require('../utils/pairSQL')
 
-class ProductModel {
-    table = 'products'
+class BookModel{
+
+    table = 'book'
 
     find = async(params = {}) => {
         const keys = Object.keys(params) 
@@ -21,26 +22,26 @@ class ProductModel {
         return result[0]
     }
 
-    create = async(uid, {name, description, price, stock}) => {
-        const sql = `INSERT INTO ${this.table} (uid, name, description, price, stock, create_date, status) VALUES (?,?,?,?,?,?,?)`
-        const result = await query(sql, [uid, name, description, price, stock, Date.now(), 'disable'])
+    create = async({uid, pre_id, sent_type_id, payment_id, amount}) => {
+        const sql = `INSERT INTO ${this.table} (uid, pre_id, sent_type_id, payment_id, amount, book_date) VALUES (?,?,?,?,?,?)`
+        const result = await query(sql, [uid, pre_id, sent_type_id, payment_id, amount, Date.now()])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }
 
     update = async(params, id) => {
         const {columns, values} = pairSQL(params)
-        const sql = `UPDATE ${this.table} SET ${columns} WHERE pid = ?`
+        const sql = `UPDATE ${this.table} SET ${columns} WHERE book_id = ?`
         const result = await query(sql, [...values, id])
         return result
     }
 
     delete = async(id) => {
-        const sql = `DELETE FROM ${this.table} WHERE pid = ?`
+        const sql = `DELETE FROM ${this.table} WHERE book_id = ?`
         const result = await query(sql, [id])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }
 }
 
-module.exports = new ProductModel
+module.exports = new BookModel 

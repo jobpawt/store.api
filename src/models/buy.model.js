@@ -32,6 +32,7 @@ class BuyModel{
         const {columns, values} = pairSQL(params)
         const sql = `UPDATE ${this.table} SET ${columns} WHERE buy_id = ?`
         const result = await query(sql, [...values, id])
+        return result
     }
 
     delete = async(id) => {

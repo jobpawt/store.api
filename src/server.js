@@ -11,6 +11,7 @@ const driverRoute = require('./routes/driver.route')
 const productTypeRoute = require('./routes/product_type.route')
 const preProductRoute = require('./routes/pre_product.route')
 const buyRoute = require('./routes/buy.route')
+const bookRoute = require('./routes/book.route')
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use('/product/pre', preProductRoute)
 app.use('/store', storeRoute)
 app.use('/driver', driverRoute)
 app.use('/buy', buyRoute)
+app.use('/book', bookRoute)
 
 app.options("*", (req, res, next) => {
     const error = new HttpException(404, 'Endpoint Not Found')

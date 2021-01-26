@@ -32,6 +32,7 @@ class StoreModel {
         const {columns, values} = pairSQL(params)
         const sql = `UPDATE ${this.table} SET ${columns} WHERE pid = ?`
         const result = await query(sql, [...values, id])
+        return result
     }
 
     delete = async(id) => {

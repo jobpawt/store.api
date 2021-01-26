@@ -32,6 +32,7 @@ class DriverModel{
         const {columns, values} = pairSQL(params)
         const sql = `UPDATE ${this.table} SET ${columns} WHERE driver_id = ?`
         const result = await query(sql, [...values, id])
+        return result
     }
 
     delete = async(id) => {

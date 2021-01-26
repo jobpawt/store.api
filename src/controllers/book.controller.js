@@ -1,40 +1,40 @@
 const HttpException = require('../utils/HttpException.utils')
-const BuyModel = require('../models/book.model')
+const BookModel = require('../models/book.model')
 
-class BuyController{
+class BookController{
 
-    table = "buy"
+    table = "book"
 
     getAll = async(req, res, next) => {
-        const list = await BuyModel.find()
+        const list = await BookModel.find()
         if(list.length == 0)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(list) 
     }         
 
     getById = async(req, res, next) => {
-        const result = await BuyModel.findOne({sid: req.params.id}) 
+        const result = await BookModel.findOne({sid: req.params.id}) 
         if(!result)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(result)
     }
 
     update = async(req, res, next) => {
-        const result = await BuyModel.update(req.body, req.body.id)
+        const result = await BookModel.update(req.body, req.body.id)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
         res.staus(200).send(`${this.table} was edited`)
     }
 
     delete = async(req, res, next) => {
-        const result = await BuyModel.delete({buy_id : req.params.id})
+        const result = await BookModel.delete({buy_id : req.params.id})
         if(!result)
             throw new HttpException(404, `${this.table} not found`)
         res.staus(200).send(`${this.table} was deleted`)
     }
 
     create = async(req, res, next) => {
-        const result = await BuyModel.create(req.body)
+        const result = await BookModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
         res.status(200).send(`${this.table} was added`)
@@ -42,4 +42,4 @@ class BuyController{
 
 }
 
-module.exports = new BuyController
+module.exports = new BookController

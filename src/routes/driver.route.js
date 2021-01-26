@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const awaitHandler = require('../middleware/awaitHandler.middleware')
 const auth = require('../middleware/auth.middleware')
-const DriverController = requrie('../controllers/driver.controller')
+const DriverController = require('../controllers/driver.controller')
 
 //get all 
 router.get('/all', awaitHandler(DriverController.getAll))
@@ -17,3 +17,5 @@ router.patch('/edit/:id',auth(), awaitHandler(DriverController.update) )
 
 //delete 
 router.delete('/delete/:sid',auth() ,awaitHandler(DriverController.delete))
+
+module.exports = router
