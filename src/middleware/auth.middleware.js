@@ -2,7 +2,6 @@ const UserModel = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 const HttpException = require('../utils/HttpException.utils')
-const awaitHandler = require('./awaitHandler.middleware')
 
 dotenv.config()
 
@@ -28,7 +27,6 @@ const auth = (...roles) => {
             if(!ownerAuthorized && roles.length && !roles.includes(user.role))
                 throw new HttpException(401, 'Unauthorized')
             const {password, ...etc} = user 
-            req.current = etc 
             next()
 
         }catch(error)  {
