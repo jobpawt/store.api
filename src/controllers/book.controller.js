@@ -13,7 +13,7 @@ class BookController{
     }         
 
     getById = async(req, res, next) => {
-        const result = await BookModel.findOne({sid: req.params.id}) 
+        const result = await BookModel.findOne({book_id: req.params.id}) 
         if(!result)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(result)

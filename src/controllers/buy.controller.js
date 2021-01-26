@@ -13,7 +13,7 @@ class BuyController{
     }         
 
     getById = async(req, res, next) => {
-        const result = await BuyModel.findOne({sid: req.params.id}) 
+        const result = await BuyModel.findOne({buy_id: req.params.id}) 
         if(!result)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(result)

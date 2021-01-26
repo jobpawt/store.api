@@ -13,7 +13,7 @@ class SendProductController{
     }         
 
     getById = async(req, res, next) => {
-        const result = await SendProductModel.findOne({sid: req.params.id}) 
+        const result = await SendProductModel.findOne({send_id: req.params.id}) 
         if(!result)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(result)

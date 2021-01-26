@@ -19,7 +19,7 @@ class UserController {
     }
 
     getById = async (req, res, next) => {
-        const user = await UserModel.findOne({id: req.params.id})
+        const user = await UserModel.findOne({uid: req.params.id})
         if(!user)
             throw new HttpException(404, 'User not found')
         const {password, ...etc} = user
@@ -29,7 +29,7 @@ class UserController {
 
     update = async(req, res, next) => {
         req.body.password = await bycrpt.hash(req.body.password, 8)
-        const result = await UserModel.update(req.body)
+        const result = await UserModel.update(req.body, req.body.uid)
         if(!result)
             throw new HttpException(404, 'Somthing went wrong')
 

@@ -41,7 +41,7 @@ class UserModel {
 
     update = async(params, id) => {
         const {columns, values} = pairSQL(params)
-        const sql = `UPDATE ${this.table} SET ${columns} WHERE id = ?`
+        const sql = `UPDATE ${this.table} SET ${columns} WHERE uid = ?`
         const result = await query(sql, [...values,id], (err, res) => {
             if(err)
                 throw HttpException(400, 'update user failed')
@@ -51,7 +51,7 @@ class UserModel {
     }
 
     delete = async(id) => {
-        const sql = `DELETE FROM ${this.table} WHERE id = ?`
+        const sql = `DELETE FROM ${this.table} WHERE uid = ?`
         const result = await query(sql, [id], (err, res) => {
             if(err)
                 throw HttpException(400, 'delete user failed')

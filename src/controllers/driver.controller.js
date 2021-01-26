@@ -11,7 +11,7 @@ class DriverController{
     }         
 
     getById = async(req, res, next) => {
-        const result = await DriverModel.findOne({sid: req.params.id}) 
+        const result = await DriverModel.findOne({driver_id: req.params.id}) 
         if(!result)
             throw new HttpException(404, 'Not found driver')
         res.status(206).send(result)

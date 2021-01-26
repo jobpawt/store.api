@@ -12,7 +12,7 @@ class PreProductController{
     }         
 
     getById = async(req, res, next) => {
-        const result = await PreProductModel.findOne({sid: req.params.id}) 
+        const result = await PreProductModel.findOne({pre_id: req.params.id}) 
         if(!result)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(result)

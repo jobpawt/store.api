@@ -13,7 +13,7 @@ class ProductTypeController{
     }         
 
     getById = async(req, res, next) => {
-        const result = await ProductTypeModel.findOne({sid: req.params.id}) 
+        const result = await ProductTypeModel.findOne({type_id: req.params.id}) 
         if(!result)
             throw new HttpException(404, `Not found any ${this.table}`)
         res.status(206).send(result)
