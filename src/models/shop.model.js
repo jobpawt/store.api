@@ -1,8 +1,8 @@
 const query = require('../db/connect')
 const pairSQL = require('../utils/pairSQL')
 
-class StoreModel {
-    table = 'stores'
+class ShopModel {
+    table = 'shops'
 
     find = async(params = {}) => {
         const keys = Object.keys(params) 
@@ -43,4 +43,4 @@ class StoreModel {
     }
 }
 
-module.exports = new StoreModel
+module.exports = new ShopModel

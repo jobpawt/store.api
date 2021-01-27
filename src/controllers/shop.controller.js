@@ -1,7 +1,7 @@
 const HttpException = require('../utils/HttpException.utils')
-const StoreModel = require('../models/store.model')
+const StoreModel = require('../models/shop.model')
 
-class StoreController {
+class ShopController {
     getAll = async(req, res, next) => {
         const list = await StoreModel.find()
         if(list.length == 0)
@@ -38,4 +38,4 @@ class StoreController {
     }
 }
 
-module.exports = new StoreController
+module.exports = new ShopController
