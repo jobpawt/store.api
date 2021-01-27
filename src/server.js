@@ -17,6 +17,7 @@ const sendProductRote = require('./routes/send_product.route')
 const sendBookRoute = require('./routes/send_book.route')
 const approveRoute = require('./routes/approve_store.route')
 const promotionRoute = require('./routes/promotion.route')
+const sentTypeRoute = require('./routes/sent_type.route')
 
 const app = express()
 
@@ -41,6 +42,7 @@ app.use('/send/product', sendProductRote)
 app.use('/send/book', sendBookRoute)
 app.use('/approve/store', approveRoute)
 app.use('/promotion', promotionRoute)
+app.use('/sent/type', sentTypeRoute)
 
 app.options("*", (req, res, next) => {
     const error = new HttpException(404, 'Endpoint Not Found')
