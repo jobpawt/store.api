@@ -3,6 +3,8 @@ const dotenv = require('dotenv')
 const HttpException =require('../utils/HttpException.utils')
 const bycrpt = require('bcryptjs')
 const UserModel = require('../models/user.model')
+const CreateID = require('../utils/CreateID')
+
 dotenv.config()
 
 class UserController {
@@ -55,7 +57,7 @@ class UserController {
         if(!isMatch)
             throw new HttpException(401, 'Incorrect password')
 
-        const token = jwt.sign({uid : user.id.toString()}, process.env.SECRET_JWT)
+        const token = jwt.sign({uid : user.uid}, process.env.SECRET_JWT)
 
         const {password, ...etc} = user
         res.status(206).send({...etc, token})
@@ -63,6 +65,7 @@ class UserController {
 
     signUp = async (req, res, next) => {
         req.body.password = await bycrpt.hash(req.body.password, 8)
+        req.body.uid = await CreateID.hash(req.body)        
         const result = await UserModel.create(req.body)
         if(!result)
             throw new HttpException(500, 'Somthing went wrong')

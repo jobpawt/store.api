@@ -4,7 +4,7 @@ const Roles = require('../utils/Role')
 const HttpException = require('../utils/HttpException.utils')
 
 class UserModel {
-    table = 'user'
+    table = 'users'
 
     find = async (params = {}) => {
         let sql = `SELECT * FROM ${this.table}`
@@ -22,17 +22,17 @@ class UserModel {
         const sql = `SELECT * FROM ${this.table} WHERE ${columns}`
         const result = await query(sql, [...values], (err, res) => {
             if(err)
-                throw HttpException(401, 'not have user')
+                throw new HttpException(401, 'not have user')
             return res
         })
         return result[0]
     }
 
-    create = async ({email, password, name, role = Roles.user}) => {
-        const sql = `INSERT INTO ${this.table} (email, password, name, role) VALUES (?,?,?,?)`
-        const result = await query(sql, [email, password, name, role], (err, res) => {
+    create = async ({uid ,email, password, tel, role = Roles.user}) => {
+        const sql = `INSERT INTO ${this.table} (uid, email, password, tel, role) VALUES (?,?,?,?,?)`
+        const result = await query(sql, [uid, email, password, tel, role], (err, res) => {
             if(err)
-                throw HttpException(400, 'create user failed')
+                throw new HttpException(400, 'create user failed')
             return res
         })
         const affectedRows = result ? result.affectedRows : 0
@@ -44,7 +44,7 @@ class UserModel {
         const sql = `UPDATE ${this.table} SET ${columns} WHERE uid = ?`
         const result = await query(sql, [...values,id], (err, res) => {
             if(err)
-                throw HttpException(400, 'update user failed')
+                throw new HttpException(400, 'update user failed')
             return res
         })
         return result
@@ -54,7 +54,7 @@ class UserModel {
         const sql = `DELETE FROM ${this.table} WHERE uid = ?`
         const result = await query(sql, [id], (err, res) => {
             if(err)
-                throw HttpException(400, 'delete user failed')
+                throw new HttpException(400, 'delete user failed')
             return res
         })
         const affectedRows = result ? result.affectedRows : 0
