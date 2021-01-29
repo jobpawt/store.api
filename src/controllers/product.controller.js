@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const ProductModel = require('../models/product.model')
+const CreateID = require('../utils/CreateID')
 
 class ProductController {
     getAll = async(req, res, next) => {
@@ -10,28 +11,29 @@ class ProductController {
     }         
 
     getById = async(req, res, next) => {
-        const result = await ProductModel.findOne({pid: req.params.pid}) 
+        const result = await ProductModel.findOne({pid: req.params.id}) 
         if(!result)
             throw new HttpException(404, 'Not found product')
         res.status(206).send(result)
     }
 
     update = async(req, res, next) => {
-        const result = await ProductModel.update(req.body, req.body.pid)
+        const result = await ProductModel.update(req.body, req.params.id)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
-        res.staus(200).send('product was edited')
+        res.status(200).send('product was edited')
     }
 
     delete = async(req, res, next) => {
-        const result = await ProductModel.delete({pid: req.params.pid})
+        const result = await ProductModel.delete({pid: req.params.id})
         if(!result)
             throw new HttpException(404, 'product not found')
-        res.staus(200).send('product was deleted')
+        res.status(200).send('product was deleted')
     }
 
     create = async(req, res, next) => {
-        const result = await ProductModel.create(req.current.uid, req.body)
+        req.body.pid = await CreateID.hash(req.body)
+        const result = await ProductModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
         res.status(200).send('product was added')

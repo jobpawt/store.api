@@ -21,9 +21,9 @@ class ProductModel {
         return result[0]
     }
 
-    create = async(uid, {name, description, price, stock}) => {
-        const sql = `INSERT INTO ${this.table} (uid, name, description, price, stock, create_date, status) VALUES (?,?,?,?,?,?,?)`
-        const result = await query(sql, [uid, name, description, price, stock, Date.now(), 'disable'])
+    create = async({pid, sid, name, description, picture_url, price, stock, type_id}) => {
+        const sql = `INSERT INTO ${this.table} (pid, sid, type_id, name, description, picture_url, price, stock, status) VALUES (?,?,?,?,?,?,?,?,?)`
+        const result = await query(sql, [pid, sid, type_id, name, description, picture_url, price, stock, "not allow"])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }
@@ -35,9 +35,10 @@ class ProductModel {
         return result
     }
 
-    delete = async(id) => {
-        const sql = `DELETE FROM ${this.table} WHERE pid = ?`
-        const result = await query(sql, [id])
+    delete = async(params) => {
+        const {columns, values} = pairSQL(params)
+        const sql = `DELETE FROM ${this.table} WHERE ${columns}`
+        const result = await query(sql, values)
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }

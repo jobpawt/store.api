@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const StoreModel = require('../models/shop.model')
+const CreateID = require('../utils/CreateID')
 
 class ShopController {
     getAll = async(req, res, next) => {
@@ -31,6 +32,7 @@ class ShopController {
     }
 
     create = async(req, res, next) => {
+        req.body.sid = await CreateID.hash(req.body)
         const result = await StoreModel.create(req.current.uid, req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
