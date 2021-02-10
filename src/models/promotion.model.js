@@ -2,7 +2,7 @@ const query = require('../db/connect')
 const pairSQL = require('../utils/pairSQL')
 
 class PromotionModel{
-    table = 'promotion'
+    table = 'promotions'
 
     find = async(params = {}) => {
         const keys = Object.keys(params) 
@@ -21,10 +21,11 @@ class PromotionModel{
         return result[0]
     }
 
-    create = async({pro_id, pid, name, price, start, end, picture_url}) => {
-        const sql = `INSERT INTO ${this.table} (pro_id, pid, name, price, start, end, picture_url) VALUES (?,)`
-        const result = await query(sql, [pro_id, pid, name, price, start, end, picture_url])
-        const affectedrows = result ? result.affectedrows : 0
+    create = async({pro_id, pid, name, price, start, end}) => {
+        const sql = `INSERT INTO ${this.table} (pro_id, pid, name, price, start, end) VALUES (?,?,?,?,?,?)`
+        console.log(sql);
+        const result = await query(sql, [pro_id, pid, name, price, start, end])
+        const affectedrows = result ? result.affectedRows : 0
         return affectedrows
     }
 

@@ -35,7 +35,7 @@ class PromotionController{
     }
 
     create = async(req, res, next) => {
-        const id = CreateID.hash(req.body)
+        const id = await CreateID.hash(req.body)
         req.body.pro_id = id
         const result = await PromotionModel.create(req.body)
         if(!result)

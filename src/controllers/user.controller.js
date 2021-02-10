@@ -48,7 +48,6 @@ class UserController {
     signIn = async (req, res, next) => {
         const {email, password:pass} = req.body
         const user = await UserModel.findOne({email: email})
-
         if(!user)
             throw new HttpException(401, 'Unable to login')
 

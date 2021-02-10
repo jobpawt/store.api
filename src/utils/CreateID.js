@@ -7,7 +7,7 @@ class CreateID {
             throw new HttpException(501, 'Invalid input')
         const values = Object.values(data)
         const dataString = values.map(value => `${value}`).join(',')
-        const res = dataString.replace('/', '')
+        var res = dataString.replace('/', '')
         return await bcrypt.hash(res, 8)
     }    
 }

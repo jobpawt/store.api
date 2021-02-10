@@ -33,7 +33,7 @@ class ShopController {
 
     create = async(req, res, next) => {
         req.body.sid = await CreateID.hash(req.body)
-        const result = await StoreModel.create(req.current.uid, req.body)
+        const result = await StoreModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
         res.status(200).send('store was added')

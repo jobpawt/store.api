@@ -21,9 +21,10 @@ class ShopModel {
         return result[0]
     }
 
-    create = async(uid, {name, address, tel, picture_url, promp_pay, open_days}) => {
-        const sql = `INSERT INTO ${this.table} (uid, name, address, tel, picture, promp_pay, open_days, status) VALUES (?,?,?,?,?,?,?, ?)`
-        const result = await query(sql, [uid, name, address, tel, picture_url, promp_pay, open_days, 'not_allow'])
+    create = async({uid, sid, name, address, tel, url, prompay, open_days}) => {
+        console.log(`[DEBUG] ${uid}`);
+        const sql = `INSERT INTO ${this.table} (sid, uid, name, address, tel, url, prompay, open_days, status) VALUES (?,?,?,?,?,?,?,?,?)`
+        const result = await query(sql, [sid, uid, name, address, tel, url, prompay, open_days, 'not allow'])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }

@@ -15,6 +15,7 @@ router.post('/create',auth(), awaitHandler(ShopController.create))
 
 //edit
 router.patch('/edit/:sid',auth(), awaitHandler(ShopController.update) )
+
 //delete 
 router.delete('/delete/:sid',auth() ,awaitHandler(ShopController.delete))
 

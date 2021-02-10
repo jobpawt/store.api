@@ -21,9 +21,9 @@ class ProductModel {
         return result[0]
     }
 
-    create = async({pid, sid, name, description, picture_url, price, stock, type_id}) => {
-        const sql = `INSERT INTO ${this.table} (pid, sid, type_id, name, description, picture_url, price, stock, status) VALUES (?,?,?,?,?,?,?,?,?)`
-        const result = await query(sql, [pid, sid, type_id, name, description, picture_url, price, stock, "not allow"])
+    create = async({pid, sid, name, description, url, price, stock, type_id}) => {
+        const sql = `INSERT INTO ${this.table} (pid, sid, type_id, name, description, url, price, stock, status) VALUES (?,?,?,?,?,?,?,?,?)`
+        const result = await query(sql, [pid, sid, type_id, name, description, url, price, stock, "not allow"])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }
