@@ -35,8 +35,8 @@ class SentTypeController{
     }
 
     create = async(req, res, next) => {
-        const id = CreateID.hash(req.body)
-        req.body.send_type_id = id
+        const id = await CreateID.hash(req.body)
+        req.body.send_type_id = id.toString().replace('/', '') 
         const result = await PromotionModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
