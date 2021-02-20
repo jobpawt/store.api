@@ -21,9 +21,9 @@ class DriverModel{
         return result[0]
     }
 
-    create = async({name, iden_number, address, tel}) => {
-        const sql = `INSERT INTO ${this.table} (name, iden_number, address, tel) VALUES (?,?,?,?)`
-        const result = await query(sql, [name, iden_number, address, tel])
+    create = async({did, name, iden_number, address, tel}) => {
+        const sql = `INSERT INTO ${this.table} (did, name, iden_number, address, tel) VALUES (?,?,?,?,?)`
+        const result = await query(sql, [did, name, iden_number, address, tel])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }

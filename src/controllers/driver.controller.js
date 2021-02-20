@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const DriverModel = require('../models/driver.model')
+const CreateID = require('../utils/CreateID')
 
 class DriverController{
 
@@ -32,6 +33,7 @@ class DriverController{
     }
 
     create = async(req, res, next) => {
+        req.body.did = (await CreateID.hash(req.body)).toString().replace('/', '')
         const result = await DriverModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
