@@ -32,7 +32,7 @@ class ProductController {
     }
 
     create = async(req, res, next) => {
-        req.body.pid = await CreateID.hash(req.body)
+        req.body.pid = (await CreateID.hash(req.body)).toString().replace('/','');
         const result = await ProductModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')

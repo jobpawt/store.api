@@ -22,9 +22,9 @@ class BookModel{
         return result[0]
     }
 
-    create = async({uid, pre_id, sent_type_id, payment_id, amount}) => {
-        const sql = `INSERT INTO ${this.table} (uid, pre_id, sent_type_id, payment_id, amount, book_date) VALUES (?,?,?,?,?,?)`
-        const result = await query(sql, [uid, pre_id, sent_type_id, payment_id, amount, Date.now()])
+    create = async({book_id,uid, pre_id, sent_type_id, payment_id, amount}) => {
+        const sql = `INSERT INTO ${this.table} (book_id,uid, pre_id, sent_type_id, payment_id, amount, book_date) VALUES (?,?,?,?,?,?,?)`
+        const result = await query(sql, [book_id, uid, pre_id, sent_type_id, payment_id, amount, Date.now()])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }

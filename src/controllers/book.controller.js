@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const BookModel = require('../models/book.model')
+const CreateID = require('../utils/CreateID')
 
 class BookController{
 
@@ -34,6 +35,7 @@ class BookController{
     }
 
     create = async(req, res, next) => {
+        req.body.book_id = (await CreateID.hash(req.body)).toString().replace('/', '');
         const result = await BookModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
