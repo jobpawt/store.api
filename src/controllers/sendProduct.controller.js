@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const SendProductModel = require('../models/sendProduct.model')
+const CreateID = require('../utils/CreateID')
 
 class SendProductController{
 
@@ -34,6 +35,7 @@ class SendProductController{
     }
 
     create = async(req, res, next) => {
+        req.body.send_product_id = (await CreateID.hash(req.body)).toString().replace('/', '')
         const result = await SendProductModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
