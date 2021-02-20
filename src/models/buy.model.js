@@ -21,9 +21,9 @@ class BuyModel{
         return result[0]
     }
 
-    create = async({uid, pid, pro_id, amount, sum, send_type, payment_id}) => {
-        const sql = `INSERT INTO ${this.table} (uid, pid, pro_id, amount, sum, send_type, payment_id, buy_date) VALUES (?,?,?,?,?,?,?,?)`
-        const result = await query(sql, [uid, pid, pro_id, amount, sum, send_type, payment_id, Date.now()])
+    create = async({bid, uid, pid, pro_id, amount, sum, send_type, payment_id}) => {
+        const sql = `INSERT INTO ${this.table} (bid, uid, pid, pro_id, amount, sum, send_type, payment_id, buy_date) VALUES (?,?,?,?,?,?,?,?,?)`
+        const result = await query(sql, [bid, uid, pid, pro_id, amount, sum, send_type, payment_id, Date.now()])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }

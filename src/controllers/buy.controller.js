@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const BuyModel = require('../models/book.model')
+const CreateID = require('../utils/CreateID')
 
 class BuyController{
 
@@ -34,6 +35,7 @@ class BuyController{
     }
 
     create = async(req, res, next) => {
+        req.body.bid = (await CreateID.hash(req.body)).toString().replace('/', '')
         const result = await BuyModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
