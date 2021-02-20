@@ -2,6 +2,7 @@ const query = require('../db/connect')
 const pairSQL = require('../utils/pairSQL')
 
 class PromotionModel{
+
     table = 'promotions'
 
     find = async(params = {}) => {
