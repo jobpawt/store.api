@@ -28,9 +28,9 @@ class UserModel {
         return result[0]
     }
 
-    create = async ({uid ,email, password, tel, role = Roles.user}) => {
-        const sql = `INSERT INTO ${this.table} (uid, email, password, tel, role) VALUES (?,?,?,?,?)`
-        const result = await query(sql, [uid, email, password, tel, role], (err, res) => {
+    create = async ({uid ,email, password, phone, role = Roles.user}) => {
+        const sql = `INSERT INTO ${this.table} (uid, email, password, phone, role) VALUES (?,?,?,?,?)`
+        const result = await query(sql, [uid, email, password, phone, role], (err, res) => {
             if(err)
                 throw new HttpException(400, 'create user failed')
             return res

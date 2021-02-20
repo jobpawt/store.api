@@ -1,5 +1,6 @@
 const HttpException = require('../utils/HttpException.utils')
 const PreProductModel = require('../models/preProduct.model')
+const CreateID = require('../utils/CreateID')
 
 class PreProductController{
     table = "pre-product"
@@ -19,20 +20,22 @@ class PreProductController{
     }
 
     update = async(req, res, next) => {
-        const result = await PreProductModel.update(req.body, req.body.id)
+        const result = await PreProductModel.update(req.body, req.params.id)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
-        res.staus(200).send(`${this.table} was edited`)
+        res.status(200).send(`${this.table} was edited`)
     }
 
     delete = async(req, res, next) => {
         const result = await PreProductModel.delete({pre_id: req.params.id})
         if(!result)
             throw new HttpException(404, `${this.table} not found`)
-        res.staus(200).send(`${this.table} was deleted`)
+        res.status(200).send(`${this.table} was deleted`)
     }
 
     create = async(req, res, next) => {
+        const id = await CreateID.hash(req.body)
+        req.body.pre_id = id.toString().replace('/', '')
         const result = await PreProductModel.create(req.body)
         if(!result)
             throw new HttpException(404, 'Something went wrong')

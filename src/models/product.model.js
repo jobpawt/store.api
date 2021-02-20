@@ -37,8 +37,8 @@ class ProductModel {
 
     delete = async(params) => {
         const {columns, values} = pairSQL(params)
-        const sql = `DELETE FROM ${this.table} WHERE ${columns}`
-        const result = await query(sql, values)
+        const sql = `UPDATE ${this.table} SET status='DELETED' WHERE ${columns}`
+        const result = await query(sql, [values])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }

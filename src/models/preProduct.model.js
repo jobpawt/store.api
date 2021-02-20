@@ -21,16 +21,16 @@ class PreProductModel{
         return result[0]
     }
 
-    create = async({name, description, picture_url, price, stock, start, end}) => {
-        const sql = `INSERT INTO ${this.table} (name, description, picture_url, price, stock, start, end) VALUES (?,?,?,?,?,?,?)`
-        const result = await query(sql, [name, description, picture_url, price, stock, start, end])
+    create = async({pre_id, sid, name, description, url, price, stock, start, end}) => {
+        const sql = `INSERT INTO ${this.table} (pre_id, sid, name, description, url, price, stock, start, end) VALUES (?,?,?,?,?,?,?,?,?)`
+        const result = await query(sql, [pre_id, sid, name, description, url, price, stock, start, end])
         const affectedRows = result ? result.affectedRows : 0
         return affectedRows
     }
 
     update = async(params, id) => {
         const {columns, values} = pairSQL(params)
-        const sql = `UPDATE ${this.table} SET ${columns} WHERE driver_id = ?`
+        const sql = `UPDATE ${this.table} SET ${columns} WHERE pre_id = ?`
         const result = await query(sql, [...values, id])
         return result
     }
