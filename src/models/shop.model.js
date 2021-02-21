@@ -30,7 +30,7 @@ class ShopModel {
 
     update = async(params, id) => {
         const {columns, values} = pairSQL(params)
-        const sql = `UPDATE ${this.table} SET ${columns} WHERE pid = ?`
+        const sql = `UPDATE ${this.table} SET ${columns} WHERE sid = ?`
         const result = await query(sql, [...values, id])
         return result
     }
