@@ -21,14 +21,14 @@ class ShopController {
         const result = await StoreModel.update(req.body, req.body.sid)
         if(!result)
             throw new HttpException(404, 'Something went wrong')
-        res.staus(200).send('store was edited')
+        res.status(200).send('store was edited')
     }
 
     delete = async(req, res, next) => {
         const result = await StoreModel.delete({sid: req.params.sid})
         if(!result)
             throw new HttpException(404, 'store not found')
-        res.staus(200).send('store was deleted')
+        res.status(200).send('store was deleted')
     }
 
     create = async(req, res, next) => {
